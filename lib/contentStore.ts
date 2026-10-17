@@ -185,10 +185,20 @@ async function saveCollectionData<T>(
       return { success: true, provider: 'Live MongoDB Database' };
     } catch (err: any) {
       console.error(`MongoDB save error for ${collectionName}:`, err);
+      let userMsg = err?.message || `Failed to save ${collectionName} to MongoDB`;
+      if (
+        userMsg.includes('SSL') ||
+        userMsg.includes('tlsv1') ||
+        userMsg.includes('alert number 80') ||
+        userMsg.includes('ETIMEDOUT')
+      ) {
+        userMsg =
+          'MongoDB Atlas IP Whitelist required: Vercel requires 0.0.0.0/0 (Allow Access from Anywhere) in your MongoDB Atlas Dashboard > Network Access. Please add 0.0.0.0/0 in Atlas to permit Vercel connections.';
+      }
       return {
         success: false,
         provider: 'none',
-        error: err?.message || `Failed to save ${collectionName} to MongoDB`,
+        error: userMsg,
       };
     }
   }

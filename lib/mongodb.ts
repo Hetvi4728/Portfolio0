@@ -1,29 +1,46 @@
 import { MongoClient } from 'mongodb';
 import dns from 'dns';
 
-// Configure public DNS servers for reliable SRV lookups across network environments
+// Only configure custom DNS in local environments, NEVER on Vercel/serverless containers
 try {
-  if (typeof window === 'undefined' && dns && typeof dns.setServers === 'function') {
+  if (
+    !process.env.VERCEL &&
+    typeof window === 'undefined' &&
+    dns &&
+    typeof dns.setServers === 'function'
+  ) {
     dns.setServers(['8.8.8.8', '1.1.1.1']);
   }
 } catch (e) {
   // ignore
 }
 
-const uri = process.env.MONGODB_URI;
+export function getNormalizedMongoUri(): string {
+  let uri = (process.env.MONGODB_URI || '').trim();
+  if (!uri) return '';
+  // Ensure the database and query parameters are cleanly specified
+  if (uri.endsWith('.mongodb.net/')) {
+    uri = uri + 'portfolio_db?retryWrites=true&w=majority';
+  } else if (uri.endsWith('.mongodb.net')) {
+    uri = uri + '/portfolio_db?retryWrites=true&w=majority';
+  }
+  return uri;
+}
 
 const options = {
   maxPoolSize: 10,
   minPoolSize: 1,
-  serverSelectionTimeoutMS: 8000,
+  serverSelectionTimeoutMS: 6000,
   connectTimeoutMS: 10000,
   socketTimeoutMS: 45000,
+  tls: true,
 };
 
 let cachedClient: MongoClient | null = null;
 let cachedPromise: Promise<MongoClient> | null = null;
 
 export async function getMongoClient(): Promise<MongoClient> {
+  const uri = getNormalizedMongoUri();
   if (!uri) {
     throw new Error('MONGODB_URI is not defined in environment variables');
   }
@@ -48,7 +65,6 @@ export async function getMongoClient(): Promise<MongoClient> {
           return connectedClient;
         })
         .catch((err) => {
-          // Reset cache on error so subsequent operations can retry cleanly
           delete globalWithMongo._mongoClientPromise;
           delete globalWithMongo._mongoClientInstance;
           throw err;
@@ -58,7 +74,7 @@ export async function getMongoClient(): Promise<MongoClient> {
     return globalWithMongo._mongoClientPromise;
   }
 
-  // In production / serverless
+  // In production / Vercel serverless
   if (cachedClient) {
     return cachedClient;
   }
@@ -82,7 +98,6 @@ export async function getMongoClient(): Promise<MongoClient> {
 }
 
 // Thenable Promise-like wrapper that resolves via getMongoClient()
-// Allows existing `await clientPromise` syntax to auto-reconnect reliably
 const clientPromise: Promise<MongoClient> = {
   then(onfulfilled, onrejected) {
     return getMongoClient().then(onfulfilled, onrejected);
