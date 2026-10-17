@@ -92,8 +92,7 @@ export async function getFlowchartsData(): Promise<Record<string, any>> {
     memoryFlowchartsCache = parsed;
     return parsed;
   } catch (err) {
-    console.error('Error reading local flowcharts.json:', err);
-    return {};
+    return memoryFlowchartsCache || {};
   }
 }
 

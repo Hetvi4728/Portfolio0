@@ -5,11 +5,44 @@ import { explorations as defaultExplorations } from '@/data/explorations';
 
 const getDataFilePath = (fileName: string) => path.join(process.cwd(), 'data', fileName);
 
+export const defaultResumeFallback: Record<string, any> = {
+  name: "Hetvi Patel",
+  title: "IT Student",
+  email: "hetvipatel4728@gmail.com",
+  phone: "+91 7990992726",
+  location: "Anand, Gujarat, India",
+  cgpa: "8.00",
+  degree: "B.Tech in Information Technology",
+  institution: "G.H. Patel College of Engineering and Technology",
+  graduation_year: "June 2025 - May 2029",
+  summary: "Aspiring IT student with a strong foundation in programming, web development, and AI/ML technologies. Seeking opportunities to apply my skills in real-world projects and contribute to the tech community.",
+  links: {
+    github: "https://github.com/Hetvi4728",
+    linkedin: "https://www.linkedin.com/in/patelhetvi4",
+    leetcode: "https://leetcode.com/u/hetvi47/",
+    GeeksforGeeks: "https://www.geeksforgeeks.org/profile/hetvi47",
+    instagram: "https://www.instagram.com/codebyhetvi47/",
+    medium: ""
+  },
+  work_experience: [],
+  technical_skills: {
+    programming_languages: ["C", "C++", "HTML", "CSS", "JavaScript", "Python"],
+    frameworks: [],
+    ai_ml_libraries: []
+  },
+  featured_projects: [
+    {
+      title: "HerMediSafe",
+      description: "HerMediSafe is an AI-powered healthcare platform designed to improve medication safety for pregnant and breastfeeding women."
+    }
+  ]
+};
+
 // Generic loader for any collection
 async function loadCollectionData<T>(
   collectionName: string,
   configId: string,
-  jsonFileName: string,
+  jsonFileName?: string,
   defaultFallback?: T
 ): Promise<T> {
   // 1. Live MongoDB Database
@@ -28,23 +61,28 @@ async function loadCollectionData<T>(
     }
   }
 
-  // 2. Fallback to local data/*.json or provided default
-  try {
-    const filePath = getDataFilePath(jsonFileName);
-    const content = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(content) as T;
-  } catch (err) {
-    if (defaultFallback) return defaultFallback;
-    console.error(`Error reading local ${jsonFileName}:`, err);
-    throw err;
+  // 2. Fallback to provided default
+  if (defaultFallback !== undefined) return defaultFallback;
+
+  // 3. Fallback to local data/*.json if exists
+  if (jsonFileName) {
+    try {
+      const filePath = getDataFilePath(jsonFileName);
+      const content = await fs.readFile(filePath, 'utf-8');
+      return JSON.parse(content) as T;
+    } catch (err) {
+      // Local JSON file was removed; data is maintained in MongoDB
+    }
   }
+
+  return ([] as unknown) as T;
 }
 
 // Generic saver for any collection
 async function saveCollectionData<T>(
   collectionName: string,
   configId: string,
-  jsonFileName: string,
+  jsonFileName: string | null,
   newData: T
 ): Promise<{ success: boolean; provider: string }> {
   let activeProvider = 'memory';
@@ -66,13 +104,15 @@ async function saveCollectionData<T>(
     }
   }
 
-  // 2. Local File Save fallback
-  try {
-    const filePath = getDataFilePath(jsonFileName);
-    await fs.writeFile(filePath, JSON.stringify(newData, null, 2), 'utf-8');
-    activeProvider = 'Local File';
-  } catch (err) {
-    console.warn(`Local fs write skipped for ${jsonFileName} (serverless environment)`);
+  // 2. Local File Save fallback if file path provided
+  if (jsonFileName) {
+    try {
+      const filePath = getDataFilePath(jsonFileName);
+      await fs.writeFile(filePath, JSON.stringify(newData, null, 2), 'utf-8');
+      activeProvider = 'Local File';
+    } catch (err) {
+      // Skip local file write
+    }
   }
 
   return { success: true, provider: activeProvider };
@@ -80,34 +120,34 @@ async function saveCollectionData<T>(
 
 // --- ART ---
 export async function getArtData() {
-  return loadCollectionData<any[]>('art', 'art_config', 'art.json');
+  return loadCollectionData<any[]>('art', 'art_config', 'art.json', []);
 }
 export async function saveArtData(data: any[]) {
-  return saveCollectionData<any[]>('art', 'art_config', 'art.json', data);
+  return saveCollectionData<any[]>('art', 'art_config', null, data);
 }
 
 // --- BLOG ---
 export async function getBlogData() {
-  return loadCollectionData<any[]>('blogs', 'blog_config', 'blog.json');
+  return loadCollectionData<any[]>('blogs', 'blog_config', 'blog.json', []);
 }
 export async function saveBlogData(data: any[]) {
-  return saveCollectionData<any[]>('blogs', 'blog_config', 'blog.json', data);
+  return saveCollectionData<any[]>('blogs', 'blog_config', null, data);
 }
 
 // --- PROJECTS ---
 export async function getProjectsData() {
-  return loadCollectionData<any[]>('projects', 'projects_config', 'projects.json');
+  return loadCollectionData<any[]>('projects', 'projects_config', 'projects.json', []);
 }
 export async function saveProjectsData(data: any[]) {
-  return saveCollectionData<any[]>('projects', 'projects_config', 'projects.json', data);
+  return saveCollectionData<any[]>('projects', 'projects_config', null, data);
 }
 
 // --- RESUME ---
 export async function getResumeData() {
-  return loadCollectionData<Record<string, any>>('resume', 'resume_config', 'resume.json');
+  return loadCollectionData<Record<string, any>>('resume', 'resume_config', 'resume.json', defaultResumeFallback);
 }
 export async function saveResumeData(data: Record<string, any>) {
-  return saveCollectionData<Record<string, any>>('resume', 'resume_config', 'resume.json', data);
+  return saveCollectionData<Record<string, any>>('resume', 'resume_config', null, data);
 }
 
 // --- EXPLORATIONS / EXPLORE PAGE ---
@@ -115,5 +155,5 @@ export async function getExplorationsData() {
   return loadCollectionData<any[]>('explorations', 'explorations_config', 'explorations.json', defaultExplorations);
 }
 export async function saveExplorationsData(data: any[]) {
-  return saveCollectionData<any[]>('explorations', 'explorations_config', 'explorations.json', data);
+  return saveCollectionData<any[]>('explorations', 'explorations_config', null, data);
 }

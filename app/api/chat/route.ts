@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
-import resumeData from '@/data/resume.json';
+import { getResumeData } from '@/lib/contentStore';
 
 export async function POST(req: Request) {
   try {
+    const resumeData = await getResumeData();
     const body = await req.json();
     const userMessages = body.messages || [];
 
@@ -51,13 +52,13 @@ Guidelines:
       } else {
         const errorText = await resp.text();
         const lastUserMsg = userMessages.length > 0 ? userMessages[userMessages.length - 1].content : '';
-        const reply = generateLocalResponse(lastUserMsg, errorText);
+        const reply = generateLocalResponse(lastUserMsg, resumeData, errorText);
         return NextResponse.json({ reply, source: 'fallback', api_error: errorText });
       }
     }
 
     const lastUserMsg = userMessages.length > 0 ? userMessages[userMessages.length - 1].content : '';
-    const reply = generateLocalResponse(lastUserMsg);
+    const reply = generateLocalResponse(lastUserMsg, resumeData);
     return NextResponse.json({ reply, source: 'local_assistant' });
   } catch (error: unknown) {
     const errMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -65,7 +66,7 @@ Guidelines:
   }
 }
 
-function generateLocalResponse(query: string, apiErr?: string): string {
+function generateLocalResponse(query: string, resumeData: any, apiErr?: string): string {
   const q = (query || '').toLowerCase();
   let prefix = '';
   if (apiErr) {

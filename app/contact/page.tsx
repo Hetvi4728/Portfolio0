@@ -1,13 +1,16 @@
 import React from 'react';
-import resumeData from '@/data/resume.json';
+import { getResumeData } from '@/lib/contentStore';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, BookOpen, Code2 } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Contact | Hetvi Patel',
   description: 'Get in touch with Hetvi Patel for internships, projects, or collaborations.',
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const resumeData = await getResumeData();
   const socialLinkClasses = "w-10 h-10 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-text-secondaryLight dark:text-text-secondaryDark hover:text-cyber-cyan hover:border-cyber-cyan transition-all duration-200 hover:-translate-y-0.5 hover:shadow-glow-cyan shadow-sm bg-white/40 dark:bg-white/5";
 
   return (

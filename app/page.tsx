@@ -1,9 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import projectsData from '@/data/projects.json';
-import resumeData from '@/data/resume.json';
-import blogData from '@/data/blog.json';
+import { getProjectsData, getBlogData, getResumeData } from '@/lib/contentStore';
 import { Project, BlogPost } from '@/types/portfolio';
 import {
   FileText,
@@ -35,7 +33,14 @@ import {
 import ProjectsContent from '@/components/ProjectsContent';
 import BlogContent from '@/components/BlogContent';
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic';
+
+export default async function HomePage() {
+  const [projectsData, blogData, resumeData] = await Promise.all([
+    getProjectsData(),
+    getBlogData(),
+    getResumeData(),
+  ]);
   const projects: Project[] = projectsData;
   const posts: BlogPost[] = blogData;
   const socialLinkClasses =
@@ -460,7 +465,7 @@ export default function HomePage() {
 
               <div className="relative pl-5 border-l-2 border-indigo-200 dark:border-indigo-900/50 space-y-6">
                 {(resumeData.work_experience && resumeData.work_experience.length > 0) ? (
-                  resumeData.work_experience.map((exp: any, index) => (
+                  resumeData.work_experience.map((exp: any, index: number) => (
                     <div key={index} className="relative">
                       <span className="absolute left-[-1.6rem] top-1.5 w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
                       <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
@@ -496,7 +501,7 @@ export default function HomePage() {
                       Languages
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {resumeData.technical_skills.programming_languages.map((lang, i) => (
+                      {resumeData.technical_skills.programming_languages.map((lang: string, i: number) => (
                         <span key={i} className="cyber-badge">
                           {lang}
                         </span>
@@ -511,7 +516,7 @@ export default function HomePage() {
                       Frameworks &amp; Web
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {resumeData.technical_skills.frameworks.map((fw, i) => (
+                      {resumeData.technical_skills.frameworks.map((fw: string, i: number) => (
                         <span key={i} className="cyber-badge-emerald">
                           {fw}
                         </span>
@@ -526,7 +531,7 @@ export default function HomePage() {
                       AI / ML / Data Libraries
                     </span>
                     <div className="flex flex-wrap gap-1.5">
-                      {resumeData.technical_skills.ai_ml_libraries.map((lib, i) => (
+                      {resumeData.technical_skills.ai_ml_libraries.map((lib: string, i: number) => (
                         <span key={i} className="cyber-badge-violet">
                           {lib}
                         </span>
