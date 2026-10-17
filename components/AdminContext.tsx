@@ -18,6 +18,7 @@ import {
   CheckCircle2,
   UploadCloud,
   Sparkles,
+  Pencil,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -689,6 +690,27 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
                 <span>Admin Control Menu</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
               </div>
+
+              {/* 0. HERO & OVERVIEW */}
+              <button
+                onClick={() => {
+                  setIsDropdownOpen(false);
+                  const editBtn = document.querySelector('[title="Edit Profile & Badges"]') as HTMLElement;
+                  if (editBtn) {
+                    editBtn.click();
+                  } else {
+                    router.push('/#home');
+                    setTimeout(() => {
+                      const btn = document.querySelector('[title="Edit Profile & Badges"]') as HTMLElement;
+                      if (btn) btn.click();
+                    }, 400);
+                  }
+                }}
+                className="w-full px-3 py-2 rounded-xl text-left text-amber-300 hover:text-white hover:bg-amber-600/60 font-semibold flex items-center gap-2.5 transition-all cursor-pointer"
+              >
+                <Pencil size={14} className="text-amber-400 shrink-0" />
+                <span>Edit Hero &amp; Overview (MongoDB)</span>
+              </button>
 
               {/* 1. PROJECTS */}
               <button
