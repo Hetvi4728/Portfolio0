@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Base Styling & Colorful Aesthetic Overrides */
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-[#f8fafc] dark:bg-[#0b0f19] text-[#0f172a] dark:text-[#f8fafc] min-h-screen flex flex-col overflow-x-hidden relative transition-colors duration-300;
+  }
+
+  /* Soft Colorful Background Lighting Orbs */
+  body::before {
+    content: "";
+    @apply fixed top-[-10%] left-[10%] w-[650px] h-[650px] pointer-events-none filter blur-[130px] z-[-2];
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(0,0,0,0) 70%);
+  }
+
+  body::after {
+    content: "";
+    @apply fixed bottom-[5%] right-[5%] w-[650px] h-[650px] pointer-events-none filter blur-[130px] z-[-2];
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, rgba(0,0,0,0) 70%);
+  }
+
+  html.dark body::before {
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.09) 0%, rgba(0,0,0,0) 75%);
+  }
+  html.dark body::after {
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.09) 0%, rgba(0,0,0,0) 75%);
+  }
+}
+
+/* Custom Components & Utilities */
+@layer components {
+  /* Colorful Aesthetic Glassmorphism Cards */
+  .cyber-glass-card {
+    @apply bg-white/90 dark:bg-[#111827]/85 backdrop-blur-xl border border-slate-200/90 dark:border-slate-800/80 rounded-2xl shadow-sm transition-all duration-300;
+  }
+  
+  .cyber-glass-card:hover {
+    @apply border-indigo-300 dark:border-indigo-700/60 -translate-y-1 shadow-md;
+  }
+
+  /* Aesthetic Buttons */
+  .cyber-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 font-medium text-white bg-gradient-to-r from-indigo-600 via-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 px-5 py-2.5 rounded-xl transition-all duration-200 border border-transparent shadow-md shadow-indigo-500/20 hover:-translate-y-0.5 cursor-pointer;
+  }
+
+  .cyber-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 font-medium px-5 py-2.5 rounded-xl transition-all duration-200 border border-slate-200/90 dark:border-slate-800 bg-white/80 dark:bg-slate-800/70 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-0.5 cursor-pointer shadow-sm;
+  }
+
+  /* Colorful Aesthetic Badges */
+  .cyber-badge {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-indigo-50/90 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/50;
+  }
+
+  .cyber-badge-emerald {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-emerald-50/90 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-800/50;
+  }
+
+  .cyber-badge-amber {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-amber-50/90 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border border-amber-200/70 dark:border-amber-800/50;
+  }
+
+  .cyber-badge-violet {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-purple-50/90 dark:bg-purple-950/70 text-purple-700 dark:text-purple-300 border border-purple-200/70 dark:border-purple-800/50;
+  }
+
+  .cyber-badge-teal {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full bg-teal-50/90 dark:bg-teal-950/70 text-teal-700 dark:text-teal-300 border border-teal-200/70 dark:border-teal-800/50;
+  }
+
+  /* Form Fields */
+  .cyber-input {
+    @apply w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-slate-900 dark:text-slate-100 placeholder-slate-400 outline-none transition-all duration-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20;
+  }
+}
+
+/* Custom Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#f8fafc] dark:bg-[#0b0f19];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-indigo-400 dark:bg-indigo-600 rounded-full;
+}
