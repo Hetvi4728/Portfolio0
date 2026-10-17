@@ -134,15 +134,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Lake Portrait Photo Card (vandan_lake.png) */}
+          {/* Portrait Photo Card */}
           <div className="cyber-glass-card col-span-4 p-0 overflow-hidden relative group min-h-[280px] border-purple-100 dark:border-purple-900/40">
             <Image
-              src="/images/vandan_lake.png"
+              src="/images/hetvi.jpg"
               alt={resumeData.name}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
             />
           </div>
 
@@ -398,7 +398,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-5">
             <div className="cyber-glass-card p-5 text-center bg-gradient-to-br from-indigo-50/60 via-white to-purple-50/40 dark:from-indigo-950/30 dark:via-slate-900/90 dark:to-purple-950/20 border-indigo-100 dark:border-indigo-900/40">
               <div className="relative w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-2 border-indigo-200 dark:border-indigo-700 shadow-sm">
-                <Image src="/images/van.jpg" alt={resumeData.name} fill sizes="96px" className="object-cover" />
+                <Image src="/images/hetvi.jpg" alt={resumeData.name} fill sizes="96px" className="object-cover object-top" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-0.5">{resumeData.name}</h3>
               <p className="text-indigo-600 dark:text-indigo-400 text-[0.72rem] font-semibold uppercase tracking-wider mb-2.5 font-code">

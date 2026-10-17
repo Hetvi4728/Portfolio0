@@ -76,9 +76,9 @@ export default function Navbar() {
           className="text-lg font-bold tracking-tight flex items-center gap-2.5 text-slate-900 dark:text-slate-100 cursor-pointer"
         >
           <img
-            src="/logo.png"
-            alt="Website Logo"
-            className="w-7 h-7 rounded-full object-cover border border-indigo-500/40 shadow-sm"
+            src="/images/hetvi.jpg"
+            alt="Hetvi Patel"
+            className="w-7 h-7 rounded-full object-cover object-top border border-indigo-500/40 shadow-sm"
           />
           <span>Hetvi Patel</span>
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>

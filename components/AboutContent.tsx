@@ -91,11 +91,11 @@ export default function AboutContent({ initialResume }: AboutContentProps) {
           <div className="cyber-glass-card p-6 text-center">
             <div className="relative w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-2 border-white/10 shadow-lg">
               <Image
-                src="/images/van.jpg"
+                src="/images/hetvi.jpg"
                 alt={resume.name || 'Hetvi Patel'}
                 fill
                 sizes="112px"
-                className="object-cover"
+                className="object-cover object-top"
               />
             </div>
             <h2 className="text-lg font-bold text-text-primaryLight dark:text-text-primaryDark mb-1">
