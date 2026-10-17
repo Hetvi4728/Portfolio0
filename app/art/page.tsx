@@ -4,9 +4,9 @@ import { ArtItem } from '@/types/portfolio';
 import ArtContent from '@/components/ArtContent';
 
 export const metadata = {
-  title: 'Creations & Art | Vandan Patel',
+  title: 'Creations & Art | Hetvi Patel',
   description:
-    'A curated gallery of personal visual explorations, paintings, and digital artwork created outside of coding by Vandan Patel.',
+    'A curated gallery of personal visual explorations, paintings, and digital artwork created outside of coding by Hetvi Patel.',
 };
 
 export default function ArtPage() {

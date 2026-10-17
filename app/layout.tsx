@@ -19,9 +19,9 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: 'Vandan Patel | AI & Data Science Engineer',
+  title: 'Hetvi Patel | IT Student & Developer',
   description:
-    'Portfolio of Vandan Patel - AI & Data Science Engineer specializing in LLMs, RAG pipelines, AI agents, deep learning, and full-stack web solutions.',
+    'Portfolio of Hetvi Patel - Information Technology student at GCET specializing in programming, web development, and AI/ML technologies.',
   icons: {
     icon: '/logo.png',
     shortcut: '/logo.png',

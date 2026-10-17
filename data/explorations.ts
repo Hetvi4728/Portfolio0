@@ -79,7 +79,7 @@ export const explorations: ExplorationItem[] = [
     longDescription:
       'AI Civilization Simulator is an advanced multi-agent experiment designed to study emergent societal behavior, resource economics, and collective intelligence. Autonomous AI agents gather resources, craft tools, form governance policies, trade, and evolve within a procedurally generated world in real time.',
     url: 'https://ai-civilization-simulators.vercel.app/',
-    githubUrl: 'https://github.com/patelvandan11/AI_Civilization_Simulator',
+    githubUrl: 'https://github.com/Hetvi4728/AI_Civilization_Simulator',
     buttonText: 'Explore',
     featured: true,
     tagline: 'Multi-Agent Autonomous Society Engine',
@@ -200,7 +200,7 @@ export const explorations: ExplorationItem[] = [
     longDescription:
       'Meivan is a SaaS platform engineered to bring production-grade security, policy control, and latency monitoring to modern LLM applications. Its core product, Meivan Guard, intercepts AI requests to enforce custom guardrails, prevent prompt injections, redact PII, and maintain 100% compliance across workflows.',
     url: 'https://meivan.vercel.app/',
-    githubUrl: 'https://github.com/patelvandan11',
+    githubUrl: 'https://github.com/Hetvi4728',
     buttonText: 'Visit Meivan',
     featured: false,
     tagline: 'Policy-Based Control for AI Workflows',
@@ -321,7 +321,7 @@ export const explorations: ExplorationItem[] = [
     longDescription:
       'Meivan Art is an interactive digital canvas and creative workspace. It serves as an experimental studio for procedural shader graphics, digital painting, generative art algorithms, color theory explorations, and visual art exhibitions.',
     url: 'https://meivan-art.vercel.app/',
-    githubUrl: 'https://github.com/patelvandan11',
+    githubUrl: 'https://github.com/Hetvi4728',
     buttonText: 'Explore Art',
     featured: false,
     tagline: 'Visual Canvas & Artistic Experiments',
@@ -440,7 +440,7 @@ export const explorations: ExplorationItem[] = [
     longDescription:
       'DeepFake Face Detection is a computer vision application utilizing a hybrid neural architecture. It combines MTCNN for frame-by-frame face extraction and landmark alignment with a Gated Recurrent Unit (GRU) to analyze temporal frame sequences for deepfake classification.',
     url: 'https://deep-fake-face-detection-alpha.vercel.app/',
-    githubUrl: 'https://github.com/patelvandan11/DeepFake_Face_Detection',
+    githubUrl: 'https://github.com/Hetvi4728/DeepFake_Face_Detection',
     buttonText: 'Explore Detection',
     featured: false,
     tagline: 'MTCNN & GRU Video Frame Analysis',

@@ -245,9 +245,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
   const [blogForm, setBlogForm] = useState({
     title: '',
     date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-    author: 'Vandan Patel',
+    author: 'Hetvi Patel',
     description: '',
-    link: 'https://medium.com/@patelvandan11',
+    link: 'https://github.com/Hetvi4728',
   });
 
   const [artForm, setArtForm] = useState({
@@ -338,9 +338,9 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     setBlogForm({
       title: '',
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      author: 'Vandan Patel',
+      author: 'Hetvi Patel',
       description: '',
-      link: 'https://medium.com/@patelvandan11',
+      link: 'https://github.com/Hetvi4728',
     });
     setIsDropdownOpen(false);
     setActiveModal('add-blog');
@@ -457,8 +457,8 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         description: projectForm.description,
         img_src: projectForm.img_src || '/images/full1.png',
         img_srcset: projectForm.img_src || '/images/full1.png',
-        url: projectForm.github_url || projectForm.live_demo || 'https://github.com/patelvandan11',
-        urlw: projectForm.live_demo || projectForm.github_url || 'https://github.com/patelvandan11',
+        url: projectForm.github_url || projectForm.live_demo || 'https://github.com/Hetvi4728',
+        urlw: projectForm.live_demo || projectForm.github_url || 'https://github.com/Hetvi4728',
         github_url: projectForm.github_url || null,
         live_demo: projectForm.live_demo || null,
       };
@@ -588,8 +588,8 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         tagline: exploreForm.tagline || exploreForm.title,
         description: exploreForm.description,
         longDescription: exploreForm.longDescription || exploreForm.description,
-        url: exploreForm.url || 'https://github.com/patelvandan11',
-        githubUrl: exploreForm.githubUrl || 'https://github.com/patelvandan11',
+        url: exploreForm.url || 'https://github.com/Hetvi4728',
+        githubUrl: exploreForm.githubUrl || 'https://github.com/Hetvi4728',
         buttonText: 'Explore',
         featured: false,
         previewType: 'default',
@@ -866,7 +866,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
                   <label className="font-bold text-slate-700 dark:text-slate-300 block mb-1">GitHub Repo URL</label>
                   <input
                     type="text"
-                    placeholder="https://github.com/patelvandan11/your-repo"
+                    placeholder="https://github.com/Hetvi4728/your-repo"
                     value={projectForm.github_url}
                     onChange={(e) => setProjectForm({ ...projectForm, github_url: e.target.value })}
                     className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 font-code"
@@ -1032,7 +1032,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
                   <input
                     type="text"
                     required
-                    placeholder="https://medium.com/@patelvandan11/your-article"
+                    placeholder="https://github.com/Hetvi4728/your-article"
                     value={blogForm.link}
                     onChange={(e) => setBlogForm({ ...blogForm, link: e.target.value })}
                     className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 font-code"

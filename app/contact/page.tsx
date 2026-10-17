@@ -1,10 +1,10 @@
 import React from 'react';
 import resumeData from '@/data/resume.json';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, BookOpen } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, BookOpen, Code2 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Contact | Vandan Patel',
-  description: 'Get in touch with Vandan Patel for full-time roles, freelance projects, AI consulting, or research collaborations.',
+  title: 'Contact | Hetvi Patel',
+  description: 'Get in touch with Hetvi Patel for internships, projects, or collaborations.',
 };
 
 export default function ContactPage() {
@@ -77,15 +77,26 @@ export default function ContactPage() {
 
           <div className="pt-4 border-t border-black/10 dark:border-white/10 mt-6">
             <div className="flex gap-3 justify-center">
-              <a href={resumeData.links.github} target="_blank" rel="noopener noreferrer" className={socialLinkClasses} title="GitHub">
-                <Github size={16} />
-              </a>
-              <a href={resumeData.links.linkedin} target="_blank" rel="noopener noreferrer" className={socialLinkClasses} title="LinkedIn">
-                <Linkedin size={16} />
-              </a>
-              <a href={resumeData.links.medium} target="_blank" rel="noopener noreferrer" className={socialLinkClasses} title="Medium">
-                <BookOpen size={16} />
-              </a>
+              {resumeData.links?.github && (
+                <a href={resumeData.links.github} target="_blank" rel="noopener noreferrer" className={socialLinkClasses} title="GitHub">
+                  <Github size={16} />
+                </a>
+              )}
+              {resumeData.links?.linkedin && (
+                <a href={resumeData.links.linkedin} target="_blank" rel="noopener noreferrer" className={socialLinkClasses} title="LinkedIn">
+                  <Linkedin size={16} />
+                </a>
+              )}
+              {resumeData.links?.leetcode && (
+                <a href={resumeData.links.leetcode} target="_blank" rel="noopener noreferrer" className={socialLinkClasses} title="LeetCode">
+                  <Code2 size={16} />
+                </a>
+              )}
+              {resumeData.links?.medium && (
+                <a href={resumeData.links.medium} target="_blank" rel="noopener noreferrer" className={socialLinkClasses} title="Medium">
+                  <BookOpen size={16} />
+                </a>
+              )}
             </div>
           </div>
         </div>

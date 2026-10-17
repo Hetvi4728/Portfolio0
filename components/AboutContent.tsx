@@ -63,10 +63,10 @@ export default function AboutContent({ initialResume }: AboutContentProps) {
     <div className="w-full max-w-5xl mx-auto px-6 py-20">
       <header className="text-center mb-12 relative">
         <h1 className="text-4xl font-extrabold tracking-tight mb-2 text-text-primaryLight dark:text-text-primaryDark">
-          About <span className="bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-violet bg-clip-text text-transparent">Vandan Patel</span>
+          About <span className="bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-violet bg-clip-text text-transparent">{resume.name || 'Hetvi Patel'}</span>
         </h1>
         <p className="text-text-secondaryLight dark:text-text-secondaryDark text-base max-w-2xl mx-auto leading-relaxed">
-          AI &amp; Data Science Engineer passionate about building intelligent, scalable, and impact-driven technology.
+          {resume.title || 'IT Student'} passionate about building intelligent, scalable, and impact-driven technology.
         </p>
 
         {/* Admin Edit Button */}
@@ -92,20 +92,20 @@ export default function AboutContent({ initialResume }: AboutContentProps) {
             <div className="relative w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-2 border-white/10 shadow-lg">
               <Image
                 src="/images/van.jpg"
-                alt="Vandan Patel"
+                alt={resume.name || 'Hetvi Patel'}
                 fill
                 sizes="112px"
                 className="object-cover"
               />
             </div>
             <h2 className="text-lg font-bold text-text-primaryLight dark:text-text-primaryDark mb-1">
-              {resume.name || 'Vandan Patel'}
+              {resume.name || 'Hetvi Patel'}
             </h2>
             <p className="text-cyber-cyan text-xs font-bold uppercase tracking-wider mb-3">
-              AI &amp; Data Science Engineer
+              {resume.title || 'IT Student'}
             </p>
             <p className="text-text-secondaryLight dark:text-text-secondaryDark text-xs leading-relaxed mb-5">
-              Graduate in Artificial Intelligence &amp; Data Science from A.D. Patel Institute of Technology. Experienced in LLM applications, RAG pipelines, and deep learning.
+              {resume.summary || 'IT Student at G.H. Patel College of Engineering and Technology.'}
             </p>
 
             <div className="flex flex-col gap-3 text-left bg-black/5 dark:bg-black/40 p-4 rounded-xl border border-black/5 dark:border-white/5">

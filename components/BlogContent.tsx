@@ -23,7 +23,7 @@ export default function BlogContent({ initialPosts, sectionPrefix, hidePadding =
     id: Date.now(),
     title: '',
     date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-    author: 'Vandan Patel',
+    author: 'Hetvi Patel',
     description: '',
     link: '',
   });
@@ -52,9 +52,9 @@ export default function BlogContent({ initialPosts, sectionPrefix, hidePadding =
       id: Date.now(),
       title: '',
       date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      author: 'Vandan Patel',
+      author: 'Hetvi Patel',
       description: '',
-      link: 'https://medium.com/@patelvandan11',
+      link: 'https://github.com/Hetvi4728',
     });
     setIsModalOpen(true);
   };

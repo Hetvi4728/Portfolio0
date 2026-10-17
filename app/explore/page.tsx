@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import ExploreContent from '@/components/ExploreContent';
 
 export const metadata: Metadata = {
-  title: 'Explore — Vandan Patel',
+  title: 'Explore — Hetvi Patel',
   description:
-    "Explore Vandan Patel's AI experiments, products, websites, creative projects, and things he's building.",
+    "Explore Hetvi Patel's projects, websites, creative experiments, and things she's building.",
 };
 
 export default function ExplorePage() {

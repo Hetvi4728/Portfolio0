@@ -52,13 +52,13 @@ export default function HomePage() {
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-code mb-2">
                 <span>01 / ABOUT</span>
                 <span>&bull;</span>
-                <span>AI &amp; DATA SCIENCE ENGINEER</span>
+                <span>{resumeData.title.toUpperCase()}</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3.5 text-slate-900 dark:text-slate-100">
-                Vandan Patel
+                {resumeData.name}
               </h1>
               <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed mb-6">
-                Building intelligent applications with LLMs, RAG pipelines, AI agents, and computer vision. Software engineer focused on building commercial AI systems and scalable web architecture.
+                {resumeData.summary}
               </p>
 
               <div className="flex flex-wrap gap-2 mb-6">
@@ -98,30 +98,36 @@ export default function HomePage() {
               >
                 <FileText size={14} /> Resume ↗
               </a>
-              <a
-                href={resumeData.links.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cyber-btn-secondary text-xs px-4 py-2"
-              >
-                <Github size={14} /> GitHub ↗
-              </a>
-              <a
-                href={resumeData.links.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cyber-btn-secondary text-xs px-4 py-2"
-              >
-                <Linkedin size={14} /> LinkedIn ↗
-              </a>
-              <a
-                href="https://hashnode.com/@vandan11"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="cyber-btn-secondary text-xs px-4 py-2"
-              >
-                <BookOpen size={14} /> Hashnode ↗
-              </a>
+              {resumeData.links?.github && (
+                <a
+                  href={resumeData.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cyber-btn-secondary text-xs px-4 py-2"
+                >
+                  <Github size={14} /> GitHub ↗
+                </a>
+              )}
+              {resumeData.links?.linkedin && (
+                <a
+                  href={resumeData.links.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cyber-btn-secondary text-xs px-4 py-2"
+                >
+                  <Linkedin size={14} /> LinkedIn ↗
+                </a>
+              )}
+              {resumeData.links?.leetcode && (
+                <a
+                  href={resumeData.links.leetcode}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cyber-btn-secondary text-xs px-4 py-2"
+                >
+                  <Code2 size={14} /> LeetCode ↗
+                </a>
+              )}
               <a href="#contact" className="cyber-btn-secondary text-xs px-4 py-2">
                 <Send size={14} /> Contact →
               </a>
@@ -132,7 +138,7 @@ export default function HomePage() {
           <div className="cyber-glass-card col-span-4 p-0 overflow-hidden relative group min-h-[280px] border-purple-100 dark:border-purple-900/40">
             <Image
               src="/images/vandan_lake.png"
-              alt="Vandan Patel"
+              alt={resumeData.name}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 33vw"
@@ -148,7 +154,7 @@ export default function HomePage() {
                   {resumeData.cgpa}
                 </div>
                 <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1 font-code">
-                  CGPA &middot; AI &amp; Data Science
+                  CGPA &middot; {resumeData.degree}
                 </div>
               </div>
               <div className="border-t border-amber-200/60 dark:border-amber-900/40 my-0.5"></div>
@@ -219,38 +225,46 @@ export default function HomePage() {
                 <LinkIcon size={15} /> Connect &amp; Profiles
               </h3>
               <div className="flex flex-col gap-2">
-                <a
-                  href={resumeData.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-indigo-300 dark:hover:border-indigo-600"
-                >
-                  <Github size={13} className="text-indigo-600 dark:text-indigo-400" /> patelvandan11 ↗
-                </a>
-                <a
-                  href="https://hashnode.com/@vandan11"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-purple-300 dark:hover:border-purple-600"
-                >
-                  <BookOpen size={13} className="text-purple-600 dark:text-purple-400" /> Hashnode @vandan11 ↗
-                </a>
-                <a
-                  href={resumeData.links.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-sky-300 dark:hover:border-sky-600"
-                >
-                  <Linkedin size={13} className="text-sky-600 dark:text-sky-400" /> LinkedIn Profile ↗
-                </a>
-                <a
-                  href={resumeData.links.medium}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-emerald-300 dark:hover:border-emerald-600"
-                >
-                  <ExternalLink size={13} className="text-emerald-600 dark:text-emerald-400" /> Medium Articles ↗
-                </a>
+                {resumeData.links?.github && (
+                  <a
+                    href={resumeData.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-indigo-300 dark:hover:border-indigo-600"
+                  >
+                    <Github size={13} className="text-indigo-600 dark:text-indigo-400" /> GitHub Profile ↗
+                  </a>
+                )}
+                {resumeData.links?.linkedin && (
+                  <a
+                    href={resumeData.links.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-sky-300 dark:hover:border-sky-600"
+                  >
+                    <Linkedin size={13} className="text-sky-600 dark:text-sky-400" /> LinkedIn Profile ↗
+                  </a>
+                )}
+                {resumeData.links?.leetcode && (
+                  <a
+                    href={resumeData.links.leetcode}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-amber-300 dark:hover:border-amber-600"
+                  >
+                    <Code2 size={13} className="text-amber-600 dark:text-amber-400" /> LeetCode Profile ↗
+                  </a>
+                )}
+                {resumeData.links?.medium && (
+                  <a
+                    href={resumeData.links.medium}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cyber-btn-secondary w-full text-xs !py-2 !justify-start hover:border-emerald-300 dark:hover:border-emerald-600"
+                  >
+                    <ExternalLink size={13} className="text-emerald-600 dark:text-emerald-400" /> Medium Articles ↗
+                  </a>
+                )}
               </div>
             </div>
           </div>
@@ -372,10 +386,10 @@ export default function HomePage() {
             04 / BIOGRAPHY
           </span>
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-slate-900 dark:text-slate-100">
-            About Vandan Patel
+            About {resumeData.name}
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
-            AI &amp; Data Science Engineer dedicated to constructing intelligent, scalable, and impact-driven technology.
+            {resumeData.title} passionate about programming, web development, and AI/ML technologies.
           </p>
         </div>
 
@@ -384,14 +398,14 @@ export default function HomePage() {
           <div className="flex flex-col gap-5">
             <div className="cyber-glass-card p-5 text-center bg-gradient-to-br from-indigo-50/60 via-white to-purple-50/40 dark:from-indigo-950/30 dark:via-slate-900/90 dark:to-purple-950/20 border-indigo-100 dark:border-indigo-900/40">
               <div className="relative w-24 h-24 mx-auto mb-3 rounded-full overflow-hidden border-2 border-indigo-200 dark:border-indigo-700 shadow-sm">
-                <Image src="/images/van.jpg" alt="Vandan Patel" fill sizes="96px" className="object-cover" />
+                <Image src="/images/van.jpg" alt={resumeData.name} fill sizes="96px" className="object-cover" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-0.5">Vandan Patel</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-0.5">{resumeData.name}</h3>
               <p className="text-indigo-600 dark:text-indigo-400 text-[0.72rem] font-semibold uppercase tracking-wider mb-2.5 font-code">
-                AI &amp; Data Science Engineer
+                {resumeData.title}
               </p>
               <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed mb-4">
-                Graduate in Artificial Intelligence &amp; Data Science from A.D. Patel Institute of Technology. Experienced in LLM applications, RAG pipelines, and deep learning.
+                {resumeData.summary}
               </p>
 
               <div className="flex flex-col gap-2.5 text-left bg-white/80 dark:bg-slate-900/80 p-3.5 rounded-xl border border-indigo-100 dark:border-indigo-900/40">
@@ -445,21 +459,27 @@ export default function HomePage() {
               </h3>
 
               <div className="relative pl-5 border-l-2 border-indigo-200 dark:border-indigo-900/50 space-y-6">
-                {resumeData.work_experience.map((exp, index) => (
-                  <div key={index} className="relative">
-                    <span className="absolute left-[-1.6rem] top-1.5 w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
-                      {exp.role} &middot;{' '}
-                      <a href={exp.company_url} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo-600 dark:text-indigo-400">
-                        {exp.company} ↗
-                      </a>
-                    </h4>
-                    <p className="text-xs font-semibold font-code text-slate-500 dark:text-slate-400 my-0.5">{exp.duration}</p>
-                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                      {exp.details}
-                    </p>
-                  </div>
-                ))}
+                {(resumeData.work_experience && resumeData.work_experience.length > 0) ? (
+                  resumeData.work_experience.map((exp: any, index) => (
+                    <div key={index} className="relative">
+                      <span className="absolute left-[-1.6rem] top-1.5 w-2.5 h-2.5 rounded-full bg-indigo-600 dark:bg-indigo-400"></span>
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
+                        {exp.role} &middot;{' '}
+                        <a href={exp.company_url} target="_blank" rel="noopener noreferrer" className="hover:underline text-indigo-600 dark:text-indigo-400">
+                          {exp.company} ↗
+                        </a>
+                      </h4>
+                      <p className="text-xs font-semibold font-code text-slate-500 dark:text-slate-400 my-0.5">{exp.duration}</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        {exp.details}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Currently pursuing degree &middot; Open to internship and project opportunities.
+                  </p>
+                )}
               </div>
             </div>
 
@@ -470,44 +490,50 @@ export default function HomePage() {
               </h3>
 
               <div className="space-y-4">
-                <div>
-                  <span className="text-[0.7rem] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1.5 font-code">
-                    Languages
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {resumeData.technical_skills.programming_languages.map((lang, i) => (
-                      <span key={i} className="cyber-badge">
-                        {lang}
-                      </span>
-                    ))}
+                {(resumeData.technical_skills?.programming_languages?.length ?? 0) > 0 && (
+                  <div>
+                    <span className="text-[0.7rem] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1.5 font-code">
+                      Languages
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {resumeData.technical_skills.programming_languages.map((lang, i) => (
+                        <span key={i} className="cyber-badge">
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div>
-                  <span className="text-[0.7rem] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1.5 font-code">
-                    Frameworks &amp; Web
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {resumeData.technical_skills.frameworks.map((fw, i) => (
-                      <span key={i} className="cyber-badge-emerald">
-                        {fw}
-                      </span>
-                    ))}
+                {(resumeData.technical_skills?.frameworks?.length ?? 0) > 0 && (
+                  <div>
+                    <span className="text-[0.7rem] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1.5 font-code">
+                      Frameworks &amp; Web
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {resumeData.technical_skills.frameworks.map((fw, i) => (
+                        <span key={i} className="cyber-badge-emerald">
+                          {fw}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div>
-                  <span className="text-[0.7rem] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1.5 font-code">
-                    AI / ML / Data Libraries
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {resumeData.technical_skills.ai_ml_libraries.map((lib, i) => (
-                      <span key={i} className="cyber-badge-violet">
-                        {lib}
-                      </span>
-                    ))}
+                {(resumeData.technical_skills?.ai_ml_libraries?.length ?? 0) > 0 && (
+                  <div>
+                    <span className="text-[0.7rem] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1.5 font-code">
+                      AI / ML / Data Libraries
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {resumeData.technical_skills.ai_ml_libraries.map((lib, i) => (
+                        <span key={i} className="cyber-badge-violet">
+                          {lib}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
@@ -614,33 +640,39 @@ export default function HomePage() {
 
             <div className="pt-3 border-t border-indigo-100 dark:border-indigo-900/40 mt-5">
               <div className="flex gap-2.5 justify-center">
-                <a
-                  href={resumeData.links.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={socialLinkClasses}
-                  title="GitHub"
-                >
-                  <Github size={15} />
-                </a>
-                <a
-                  href="https://hashnode.com/@vandan11"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={socialLinkClasses}
-                  title="Hashnode"
-                >
-                  <BookOpen size={15} />
-                </a>
-                <a
-                  href={resumeData.links.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={socialLinkClasses}
-                  title="LinkedIn"
-                >
-                  <Linkedin size={15} />
-                </a>
+                {resumeData.links?.github && (
+                  <a
+                    href={resumeData.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={socialLinkClasses}
+                    title="GitHub"
+                  >
+                    <Github size={15} />
+                  </a>
+                )}
+                {resumeData.links?.linkedin && (
+                  <a
+                    href={resumeData.links.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={socialLinkClasses}
+                    title="LinkedIn"
+                  >
+                    <Linkedin size={15} />
+                  </a>
+                )}
+                {resumeData.links?.leetcode && (
+                  <a
+                    href={resumeData.links.leetcode}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={socialLinkClasses}
+                    title="LeetCode"
+                  >
+                    <Code2 size={15} />
+                  </a>
+                )}
               </div>
             </div>
           </div>

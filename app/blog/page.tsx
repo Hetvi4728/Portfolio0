@@ -4,8 +4,8 @@ import { BlogPost } from '@/types/portfolio';
 import BlogContent from '@/components/BlogContent';
 
 export const metadata = {
-  title: 'Blog & Articles | Vandan Patel',
-  description: 'Technical articles and deep dives written by Vandan Patel on LLM fine-tuning, RAG systems, and neural networks.',
+  title: 'Blog & Articles | Hetvi Patel',
+  description: 'Technical articles and deep dives written by Hetvi Patel on technology, software development, and programming.',
 };
 
 export default function BlogPage() {

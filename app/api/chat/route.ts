@@ -8,17 +8,17 @@ export async function POST(req: Request) {
 
     const apiKey = (process.env.OPENAI_API_KEY || '').trim();
 
-    const systemPrompt = `You are Vandan Patel's personal AI Assistant embedded on his portfolio website.
-Your goal is to represent Vandan Patel and answer questions from recruiters, engineers, and site visitors about Vandan's experience, skills, projects, education, articles, and contact info.
+    const systemPrompt = `You are ${resumeData.name}'s personal AI Assistant embedded on their portfolio website.
+Your goal is to represent ${resumeData.name} and answer questions from recruiters, engineers, and site visitors about ${resumeData.name}'s experience, skills, projects, education, and contact info.
 
-Here is Vandan Patel's official structured profile data from resume.json:
+Here is ${resumeData.name}'s official structured profile data from resume.json:
 ${JSON.stringify(resumeData, null, 2)}
 
 Guidelines:
 - Be friendly, professional, articulate, and concise.
-- Answer accurately based strictly on Vandan's profile data.
-- If asked how to contact Vandan, provide email (${resumeData.email}) and phone (${resumeData.phone}).
-- If asked about projects, highlight key innovations like Meivan SaaS, AI Research Assistant, Market Intelligence Agent, and DeepFake Detection.
+- Answer accurately based strictly on ${resumeData.name}'s profile data.
+- If asked how to contact ${resumeData.name}, provide email (${resumeData.email}) and phone (${resumeData.phone}).
+- If asked about projects, highlight key projects like HerMediSafe.
 - Format responses nicely with markdown list items or bold text where appropriate.`;
 
     if (apiKey && !apiKey.startsWith('your_openai')) {
@@ -79,18 +79,22 @@ function generateLocalResponse(query: string, apiErr?: string): string {
     const lib = (skills.ai_ml_libraries || []).slice(0, 8).join(', ');
     return (
       prefix +
-      `**Vandan's Technical Skills:**\n- **Programming Languages:** ${langs}\n- **Frameworks:** ${frameworks}\n- **AI/ML Libraries:** ${lib}\n- **Core Expertise:** Generative AI, RAG Systems, AI Agents, Deep Learning, and Computer Vision.`
+      `**${resumeData.name}'s Technical Skills:**\n- **Programming Languages:** ${langs}\n- **Frameworks:** ${frameworks || 'None listed'}\n- **AI/ML Libraries:** ${lib || 'None listed'}`
     );
-  } else if (/experience|work|job|intern|company|esparkbiz|corp8/.test(q)) {
-    const exps = resumeData.work_experience || [];
-    let out = "**Vandan's Work Experience:**\n";
-    for (const item of exps) {
-      out += `- **${item.role}** at **${item.company}** (${item.duration})\n  ${item.details}\n\n`;
+  } else if (/experience|work|job|intern|company/.test(q)) {
+    const exps: any[] = resumeData.work_experience || [];
+    let out = `**${resumeData.name}'s Work Experience:**\n`;
+    if (exps.length === 0) {
+      out += `Currently pursuing ${resumeData.degree} at ${resumeData.institution}. Open to internships and project opportunities!\n`;
+    } else {
+      for (const item of exps) {
+        out += `- **${item.role}** at **${item.company}** (${item.duration})\n  ${item.details}\n\n`;
+      }
     }
     return prefix + out.trim();
-  } else if (/project|build|developed|portfolio|meivan|rag|deepfake/.test(q)) {
+  } else if (/project|build|developed|portfolio|hermedisafe/.test(q)) {
     const projs = resumeData.featured_projects || [];
-    let out = "**Vandan's Key Projects:**\n";
+    let out = `**${resumeData.name}'s Key Projects:**\n`;
     for (const p of projs.slice(0, 4)) {
       out += `- **${p.title}**: ${p.description}\n`;
     }
@@ -99,7 +103,7 @@ function generateLocalResponse(query: string, apiErr?: string): string {
   } else if (/contact|email|phone|reach|hire|linkedin/.test(q)) {
     return (
       prefix +
-      `**Contact Vandan Patel:**\n- **Email:** [${resumeData.email}](mailto:${resumeData.email})\n- **Phone:** ${resumeData.phone}\n- **Location:** ${resumeData.location}\n- **LinkedIn:** [LinkedIn Profile](${resumeData.links?.linkedin})`
+      `**Contact ${resumeData.name}:**\n- **Email:** [${resumeData.email}](mailto:${resumeData.email})\n- **Phone:** ${resumeData.phone}\n- **Location:** ${resumeData.location}\n- **LinkedIn:** [LinkedIn Profile](${resumeData.links?.linkedin})`
     );
   } else if (/education|degree|cgpa|college|university|gpa/.test(q)) {
     return (
@@ -109,7 +113,7 @@ function generateLocalResponse(query: string, apiErr?: string): string {
   } else {
     return (
       prefix +
-      `I am Vandan's AI Portfolio Assistant. Feel free to ask me any question about Vandan Patel's technical skills, work experience, projects, education, or contact details!`
+      `I am ${resumeData.name}'s AI Portfolio Assistant. Feel free to ask me any question about ${resumeData.name}'s technical skills, projects, education, or contact details!`
     );
   }
 }

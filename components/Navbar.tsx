@@ -80,7 +80,7 @@ export default function Navbar() {
             alt="Website Logo"
             className="w-7 h-7 rounded-full object-cover border border-indigo-500/40 shadow-sm"
           />
-          <span>Vandan Patel</span>
+          <span>Hetvi Patel</span>
           <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
         </a>
 

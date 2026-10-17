@@ -3,8 +3,8 @@ import resumeData from '@/data/resume.json';
 import AboutContent from '@/components/AboutContent';
 
 export const metadata = {
-  title: 'About Me | Vandan Patel',
-  description: 'Learn more about Vandan Patel\'s background, education, work experience, technical skills, and hobbies.',
+  title: 'About Me | Hetvi Patel',
+  description: 'Learn more about Hetvi Patel\'s background, education, technical skills, and projects.',
 };
 
 export default function AboutPage() {

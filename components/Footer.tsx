@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-3">
             <a
-              href="https://github.com/patelvandan11"
+              href="https://github.com/Hetvi4728"
               target="_blank"
               rel="noopener noreferrer"
               className={linkClasses}
@@ -25,16 +25,7 @@ export default function Footer() {
               <Github size={16} />
             </a>
             <a
-              href="https://hashnode.com/@vandan11"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={linkClasses}
-              title="Hashnode Profile"
-            >
-              <BookOpen size={16} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/patelvandan11"
+              href="https://www.linkedin.com/in/patelhetvi4"
               target="_blank"
               rel="noopener noreferrer"
               className={linkClasses}
@@ -43,25 +34,7 @@ export default function Footer() {
               <Linkedin size={16} />
             </a>
             <a
-              href="https://medium.com/@patelvandan11"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={linkClasses}
-              title="Medium"
-            >
-              <Globe size={16} />
-            </a>
-            <a
-              href="https://www.kaggle.com/patelvandan115"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={linkClasses}
-              title="Kaggle"
-            >
-              <span className="font-extrabold text-xs font-code">K</span>
-            </a>
-            <a
-              href="https://leetcode.com/u/vandan_patel115/"
+              href="https://leetcode.com/u/hetvi47/"
               target="_blank"
               rel="noopener noreferrer"
               className={linkClasses}
@@ -70,7 +43,16 @@ export default function Footer() {
               <Code size={16} />
             </a>
             <a
-              href="https://www.instagram.com/vandan_1_1/"
+              href="https://www.geeksforgeeks.org/profile/hetvi47"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClasses}
+              title="GeeksforGeeks"
+            >
+              <Globe size={16} />
+            </a>
+            <a
+              href="https://www.instagram.com/codebyhetvi47/"
               target="_blank"
               rel="noopener noreferrer"
               className={linkClasses}
@@ -82,7 +64,7 @@ export default function Footer() {
           <div className="flex items-center justify-center gap-2">
             <img src="/logo.png" alt="Logo" className="w-5 h-5 rounded-full object-cover border border-zinc-300 dark:border-zinc-700" />
             <p className="text-xs text-zinc-500 dark:text-zinc-400 tracking-wide text-center font-code">
-              &copy; {new Date().getFullYear()} Vandan Patel. Crafted with Next.js, Tailwind CSS &amp; TypeScript.
+              &copy; {new Date().getFullYear()} Hetvi Patel. Crafted with Next.js, Tailwind CSS &amp; TypeScript.
             </p>
             <button
               onClick={openAdminModal}

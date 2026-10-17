@@ -12,7 +12,7 @@ export default function Chatbot() {
     {
       role: 'assistant',
       content:
-        '👋 Hello! I am **Vandan\'s AI Assistant**.\n\nFeel free to ask me anything about Vandan Patel\'s profile, skills, work experience, projects, or contact information.',
+        '👋 Hello! I am **Hetvi\'s AI Assistant**.\n\nFeel free to ask me anything about Hetvi Patel\'s profile, technical skills, projects, education, or contact information.',
     },
   ]);
 
@@ -90,7 +90,7 @@ export default function Chatbot() {
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 rounded-full bg-gradient-to-br from-cyber-cyan to-cyber-violet text-white flex items-center justify-center relative cursor-pointer transition-all duration-300 hover:scale-110 shadow-[0_8px_24px_rgba(6,182,212,0.35)] hover:shadow-[0_12px_30px_rgba(6,182,212,0.5)] border border-white/10 outline-none"
         aria-label="Open AI Assistant"
-        title="Chat with Vandan's AI Profile"
+        title="Chat with Hetvi's AI Profile"
       >
         {isOpen ? <X size={22} /> : <MessageSquare size={22} />}
         <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white dark:border-[#030712] rounded-full z-10 animate-pulse"></span>
@@ -108,8 +108,8 @@ export default function Chatbot() {
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-white dark:border-[#07090e]"></span>
             </div>
             <div>
-              <h3 className="text-[0.95rem] font-bold text-text-primaryLight dark:text-text-primaryDark leading-snug">Vandan&apos;s AI Assistant</h3>
-              <p className="text-[0.72rem] text-text-muted">Ask me anything about Vandan&apos;s profile</p>
+              <h3 className="text-[0.95rem] font-bold text-text-primaryLight dark:text-text-primaryDark leading-snug">Hetvi&apos;s AI Assistant</h3>
+              <p className="text-[0.72rem] text-text-muted">Ask me anything about Hetvi&apos;s profile</p>
             </div>
           </div>
           <button

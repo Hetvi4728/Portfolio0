@@ -186,7 +186,7 @@ export async function saveFlowchartsData(updatedData: Record<string, any>): Prom
 
   // 5. GitHub API Commit
   const ghToken = process.env.GITHUB_TOKEN;
-  const ghRepo = process.env.GITHUB_REPO || 'patelvandan11/flask12';
+  const ghRepo = process.env.GITHUB_REPO || 'Hetvi4728/portfolio';
   if (ghToken && ghRepo) {
     try {
       const getFileRes = await fetch(`https://api.github.com/repos/${ghRepo}/contents/data/flowcharts.json`, {

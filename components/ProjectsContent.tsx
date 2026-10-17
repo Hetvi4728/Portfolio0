@@ -127,7 +127,7 @@ export default function ProjectsContent({ initialProjects, sectionPrefix, hidePa
           Featured Projects &amp; Demos
         </h2>
         <p className="text-slate-600 dark:text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
-          A showcase of AI systems, LLM agents, SaaS applications, computer vision models, and web tools built by Vandan Patel.
+          A showcase of software projects, web tools, applications, and AI systems built by Hetvi Patel.
         </p>
 
         {/* Admin Add Button (Only when Admin) */}
