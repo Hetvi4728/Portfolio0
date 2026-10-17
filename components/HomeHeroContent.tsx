@@ -40,6 +40,9 @@ export default function HomeHeroContent({ initialData }: HomeHeroContentProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [formData, setFormData] = useState<any>(initialData);
+  const [badgesRawText, setBadgesRawText] = useState<string>(
+    Array.isArray(initialData?.hero_badges) ? initialData.hero_badges.join(', ') : ''
+  );
   const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
@@ -54,6 +57,9 @@ export default function HomeHeroContent({ initialData }: HomeHeroContentProps) {
         if (fresh && typeof fresh === 'object') {
           setData(fresh);
           setFormData(fresh);
+          if (Array.isArray(fresh.hero_badges)) {
+            setBadgesRawText(fresh.hero_badges.join(', '));
+          }
         }
       }
     } catch (err) {
@@ -63,6 +69,7 @@ export default function HomeHeroContent({ initialData }: HomeHeroContentProps) {
 
   const handleOpenModal = (tab?: 'profile' | 'badges' | 'metrics' | 'stack' | 'profiles') => {
     setFormData(JSON.parse(JSON.stringify(data)));
+    setBadgesRawText(Array.isArray(data?.hero_badges) ? data.hero_badges.join(', ') : '');
     if (tab) setActiveTab(tab);
     setSaveSuccess(false);
     setIsModalOpen(true);
@@ -73,16 +80,27 @@ export default function HomeHeroContent({ initialData }: HomeHeroContentProps) {
     setIsSaving(true);
     setSaveSuccess(false);
 
+    const parsedBadges = badgesRawText
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const payload = {
+      ...formData,
+      hero_badges: parsedBadges,
+    };
+
     try {
       const res = await fetch('/api/resume/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: formData }),
+        body: JSON.stringify({ data: payload }),
       });
 
       const resData = await res.json();
       if (res.ok && resData.success) {
-        setData(formData);
+        setData(payload);
+        setFormData(payload);
         setSaveSuccess(true);
         setTimeout(() => {
           setIsModalOpen(false);
@@ -204,22 +222,6 @@ export default function HomeHeroContent({ initialData }: HomeHeroContentProps) {
     <>
       {/* 1. HERO SECTION (#home) */}
       <section id="home" className="pt-24 md:pt-28 scroll-mt-28 relative">
-        {/* Admin floating edit button bar for the Hero section */}
-        {isAdmin && (
-          <div className="mb-4 flex items-center justify-between p-3 rounded-2xl bg-indigo-950/80 border border-indigo-500/40 text-white backdrop-blur-md animate-in fade-in">
-            <div className="flex items-center gap-2 text-xs font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Admin Mode Active &middot; All Hero &amp; Overview content is editable &amp; stored in MongoDB</span>
-            </div>
-            <button
-              onClick={() => handleOpenModal('profile')}
-              className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-md cursor-pointer hover:scale-105"
-            >
-              <Pencil size={13} /> Edit Hero &amp; Overview (Admin)
-            </button>
-          </div>
-        )}
-
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
           {/* Main Info Card */}
           <div className="cyber-glass-card col-span-8 p-6 md:p-8 flex flex-col justify-between relative group">
@@ -631,13 +633,15 @@ export default function HomeHeroContent({ initialData }: HomeHeroContentProps) {
                     </p>
                     <textarea
                       rows={3}
-                      value={Array.isArray(formData.hero_badges) ? formData.hero_badges.join(', ') : ''}
+                      value={badgesRawText}
                       onChange={(e) => {
-                        const arr = e.target.value
+                        const val = e.target.value;
+                        setBadgesRawText(val);
+                        const arr = val
                           .split(',')
                           .map((s) => s.trim())
                           .filter(Boolean);
-                        setFormData({ ...formData, hero_badges: arr });
+                        setFormData((prev: any) => ({ ...prev, hero_badges: arr }));
                       }}
                       placeholder="LangChain, FastAPI, OpenAI API, React.js / Next.js, PyTorch, ChromaDB, OpenCV, Docker"
                       className="w-full px-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-indigo-500 font-mono"
