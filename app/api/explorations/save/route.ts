@@ -16,8 +16,14 @@ export async function POST(req: NextRequest) {
     }
 
     const result = await saveExplorationsData(data);
+    if (!result.success) {
+      return NextResponse.json(
+        { success: false, error: result.error || 'Failed to save explorations data to MongoDB' },
+        { status: 500 }
+      );
+    }
     return NextResponse.json({ success: true, message: `Explorations saved via ${result.provider}`, provider: result.provider, data });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: 'Failed to save explorations data' }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error?.message || 'Failed to save explorations data' }, { status: 500 });
   }
 }

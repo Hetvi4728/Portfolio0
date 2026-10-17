@@ -16,8 +16,14 @@ export async function POST(req: NextRequest) {
     }
 
     const result = await saveProjectsData(data);
+    if (!result.success) {
+      return NextResponse.json(
+        { success: false, error: result.error || 'Failed to save projects data to MongoDB' },
+        { status: 500 }
+      );
+    }
     return NextResponse.json({ success: true, message: `Projects saved via ${result.provider}`, provider: result.provider, data });
-  } catch (error) {
-    return NextResponse.json({ success: false, error: 'Failed to save projects data' }, { status: 500 });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error?.message || 'Failed to save projects data' }, { status: 500 });
   }
 }

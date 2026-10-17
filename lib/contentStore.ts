@@ -112,6 +112,9 @@ export const defaultResumeFallback: Record<string, any> = {
   ]
 };
 
+// In-memory cache across server requests in same process
+const inMemoryCache: Record<string, any> = {};
+
 // Generic loader for any collection
 async function loadCollectionData<T>(
   collectionName: string,
@@ -128,6 +131,7 @@ async function loadCollectionData<T>(
       const doc = await db.collection(collectionName).findOne({ _id: configId as any });
 
       if (doc && doc.data) {
+        inMemoryCache[collectionName] = doc.data;
         return doc.data as T;
       }
     } catch (err) {
@@ -135,10 +139,15 @@ async function loadCollectionData<T>(
     }
   }
 
-  // 2. Fallback to provided default
+  // 2. Fallback to in-memory cache if available
+  if (inMemoryCache[collectionName] !== undefined) {
+    return inMemoryCache[collectionName] as T;
+  }
+
+  // 3. Fallback to provided default
   if (defaultFallback !== undefined) return defaultFallback;
 
-  // 3. Fallback to local data/*.json if exists
+  // 4. Fallback to local data/*.json if exists
   if (jsonFileName) {
     try {
       const filePath = getDataFilePath(jsonFileName);
@@ -158,8 +167,9 @@ async function saveCollectionData<T>(
   configId: string,
   jsonFileName: string | null,
   newData: T
-): Promise<{ success: boolean; provider: string }> {
-  let activeProvider = 'memory';
+): Promise<{ success: boolean; provider: string; error?: string }> {
+  // Immediately update in-memory cache so subsequent reads in this process reflect new data
+  inMemoryCache[collectionName] = newData;
 
   // 1. Live MongoDB Database
   if (process.env.MONGODB_URI && clientPromise) {
@@ -173,8 +183,13 @@ async function saveCollectionData<T>(
         { upsert: true }
       );
       return { success: true, provider: 'Live MongoDB Database' };
-    } catch (err) {
-      console.warn(`MongoDB save error for ${collectionName}:`, err);
+    } catch (err: any) {
+      console.error(`MongoDB save error for ${collectionName}:`, err);
+      return {
+        success: false,
+        provider: 'none',
+        error: err?.message || `Failed to save ${collectionName} to MongoDB`,
+      };
     }
   }
 
@@ -183,13 +198,13 @@ async function saveCollectionData<T>(
     try {
       const filePath = getDataFilePath(jsonFileName);
       await fs.writeFile(filePath, JSON.stringify(newData, null, 2), 'utf-8');
-      activeProvider = 'Local File';
+      return { success: true, provider: 'Local File' };
     } catch (err) {
       // Skip local file write
     }
   }
 
-  return { success: true, provider: activeProvider };
+  return { success: true, provider: 'Memory Cache' };
 }
 
 // --- ART ---
@@ -221,7 +236,9 @@ export async function getResumeData() {
   return loadCollectionData<Record<string, any>>('resume', 'resume_config', 'resume.json', defaultResumeFallback);
 }
 export async function saveResumeData(data: Record<string, any>) {
-  return saveCollectionData<Record<string, any>>('resume', 'resume_config', null, data);
+  const existing = await getResumeData();
+  const merged = { ...existing, ...data };
+  return saveCollectionData<Record<string, any>>('resume', 'resume_config', null, merged);
 }
 
 // --- EXPLORATIONS / EXPLORE PAGE ---
